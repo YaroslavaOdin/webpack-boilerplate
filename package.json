@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "webpack --mode development",
     "build": "webpack --mode prodaction",
-    "watch": "webpack --mode development --watch"
+    "watch": "webpack --mode development --watch",
+    "start": "webpack-dev-server --mode development --open",
+    "lint": "eslint ./**/*.js"
   },
+  "browserslist": "> 0.25%, not dead",
   "keywords": [
     "js",
     "javascript"
@@ -15,21 +18,33 @@
   "author": "Yaraslava <yaroslava.odin.00@mail.ru>",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
+    "eslint": "^7.12.1",
+    "eslint-loader": "^4.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
     "mini-css-extract-plugin": "^1.2.1",
     "papaparse": "^5.3.0",
     "postcss": "^8.1.6",
     "postcss-loader": "^4.0.4",
+    "serve": "^11.3.2",
     "style-loader": "^2.0.0",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0",
+    "webpack-dev": "^1.1.1",
+    "webpack-dev-server": "^3.11.0",
     "xml-loader": "^1.2.1"
   },
   "dependencies": {
+    "-": "0.0.1",
+    "@babel/polyfill": "^7.12.1",
     "csv-loader": "^3.0.3",
+    "jquery": "^3.5.1",
     "normalize.css": "^8.0.1"
   }
 }

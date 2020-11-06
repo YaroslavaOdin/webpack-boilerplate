@@ -1,12 +1,28 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const isDev = process.env.NODE_ENV === 'development';
+
+const jsLoaders = () => {
+    const loaders = [{
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+    }]
+
+    if (isDev) {
+        loaders.push('eslint-loader');
+    }
+
+    return loaders;
+}
 
 module.exports = {
-    context: path.resolve(__dirname, 'src'),//где лежат все исходники приложения
+    context: path.resolve(__dirname, 'src'), //где лежат все исходники приложения
     mode: 'development', //собираем все в режиме разработки
     entry: {
-        main: './index.js',
+        main: ['@babel/polyfill', './index.js'],
         analytics: './analytics.js'
     }, //входной файл приложения
     output: { //куда складывать результат работы вебпака
@@ -18,6 +34,15 @@ module.exports = {
         alias: {
             '@': path.resolve(__dirname, 'src'),
         },
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
+    devServer: {
+        port: 4200,
+        overlay: true,
     },
     plugins: [
         new HTMLWebpackPlugin({
@@ -51,6 +76,13 @@ module.exports = {
             {
                 test: /\.csv$/,
                 use: ['csv-loader']
+            },
+
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: jsLoaders(),
+                
             },
         ]
     },
